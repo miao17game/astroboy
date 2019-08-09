@@ -5,7 +5,7 @@ import { IInnerApplication, PureObject } from '../definitions/core';
 import { IOptions } from '../definitions/config';
 import { extractModule } from '../utils/exports';
 
-class AstroboyVersionFileLoader extends Loader<Partial<IOptions>, IInnerApplication<Partial<IOptions>>> {
+export default class AstroboyVersionFileLoader extends Loader<Partial<IOptions>, IInnerApplication<Partial<IOptions>>> {
   load() {
     let versionMap: PureObject = {};
 
@@ -22,5 +22,3 @@ class AstroboyVersionFileLoader extends Loader<Partial<IOptions>, IInnerApplicat
     this.app.versionMap = versionMap;
   }
 }
-
-export = AstroboyVersionFileLoader;

@@ -5,7 +5,7 @@ import { IInnerApplication } from '../definitions/core';
 import { IOptions } from '../definitions/config';
 import { extractModule } from '../utils/exports';
 
-class AstroboyPkgLoader extends Loader<Partial<IOptions>, IInnerApplication<Partial<IOptions>>> {
+export default class AstroboyPkgLoader extends Loader<Partial<IOptions>, IInnerApplication<Partial<IOptions>>> {
   load() {
     const pkgPath = path.resolve(__dirname, '../package.json');
 
@@ -14,5 +14,3 @@ class AstroboyPkgLoader extends Loader<Partial<IOptions>, IInnerApplication<Part
     }
   }
 }
-
-export = AstroboyPkgLoader;

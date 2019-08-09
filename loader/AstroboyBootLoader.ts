@@ -5,7 +5,7 @@ import { IInnerApplication } from '../definitions/core';
 import { IOptions } from '../definitions/config';
 import { extractModule } from '../utils/exports';
 
-class AstroboyBootLoader extends Loader<Partial<IOptions>, IInnerApplication<Partial<IOptions>>> {
+export default class AstroboyBootLoader extends Loader<Partial<IOptions>, IInnerApplication<Partial<IOptions>>> {
   load() {
     this.globDirs(this.config.pattern || [], entries => {
       entries.forEach(entry => {
@@ -16,5 +16,3 @@ class AstroboyBootLoader extends Loader<Partial<IOptions>, IInnerApplication<Par
     });
   }
 }
-
-export = AstroboyBootLoader;

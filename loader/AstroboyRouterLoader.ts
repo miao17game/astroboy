@@ -7,7 +7,7 @@ import { IInnerApplication } from '../definitions/core';
 import { IOptions } from '../definitions/config';
 import { extractModule } from '../utils/exports';
 
-class AstroboyRouterLoader extends Loader<Partial<IOptions>, IInnerApplication<Partial<IOptions>>> {
+export default class AstroboyRouterLoader extends Loader<Partial<IOptions>, IInnerApplication<Partial<IOptions>>> {
   load() {
     let routers: any[] = [];
     const indexFile = `${this.app.ROOT_PATH}/app/routers/index.js`;
@@ -41,5 +41,3 @@ class AstroboyRouterLoader extends Loader<Partial<IOptions>, IInnerApplication<P
     this.app.routers = newRouters;
   }
 }
-
-export = AstroboyRouterLoader;

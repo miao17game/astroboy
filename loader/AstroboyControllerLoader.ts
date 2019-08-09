@@ -4,7 +4,7 @@ import { IInnerApplication, PureObject } from '../definitions/core';
 import { IOptions } from '../definitions/config';
 import { extractModule } from '../utils/exports';
 
-class AstroboyControllerLoader extends Loader<Partial<IOptions>, IInnerApplication<Partial<IOptions>>> {
+export default class AstroboyControllerLoader extends Loader<Partial<IOptions>, IInnerApplication<Partial<IOptions>>> {
   load() {
     const app = this.app;
     let controllers: PureObject = {};
@@ -20,5 +20,3 @@ class AstroboyControllerLoader extends Loader<Partial<IOptions>, IInnerApplicati
     app.controllers = controllers;
   }
 }
-
-export = AstroboyControllerLoader;

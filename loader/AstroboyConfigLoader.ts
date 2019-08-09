@@ -5,7 +5,7 @@ import { IOptions } from '../definitions/config';
 import { outputJsonSync } from '../core/lib/util';
 import { extractModule } from '../utils/exports';
 
-class AstroboyConfigLoader extends Loader<Partial<IOptions>, IInnerApplication<Partial<IOptions>>> {
+export default class AstroboyConfigLoader extends Loader<Partial<IOptions>, IInnerApplication<Partial<IOptions>>> {
   load() {
     let config: Partial<IOptions> = {};
     this.globDirs(this.config.pattern || [], entries => {
@@ -26,5 +26,3 @@ class AstroboyConfigLoader extends Loader<Partial<IOptions>, IInnerApplication<P
     outputJsonSync(`${this.app.ROOT_PATH}/run/config.json`, config);
   }
 }
-
-export = AstroboyConfigLoader;

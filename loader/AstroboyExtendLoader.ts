@@ -10,7 +10,7 @@ const contextProto = require('koa/lib/context');
 const applicationProto = require('koa/lib/application').prototype;
 const completeAssign = require('complete-assign');
 
-class AstroboyExtendLoader extends Loader<Partial<IOptions>, IInnerApplication<Partial<IOptions>>> {
+export default class AstroboyExtendLoader extends Loader<Partial<IOptions>, IInnerApplication<Partial<IOptions>>> {
   load() {
     // application extend
     this.globDirs(this.config.applicationPattern || [], entries => {
@@ -48,5 +48,3 @@ class AstroboyExtendLoader extends Loader<Partial<IOptions>, IInnerApplication<P
     });
   }
 }
-
-export = AstroboyExtendLoader;

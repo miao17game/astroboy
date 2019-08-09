@@ -4,7 +4,7 @@ import { IInnerApplication, PureObject } from '../definitions/core';
 import { IOptions } from '../definitions/config';
 import { extractModule } from '../utils/exports';
 
-class AstroboyServiceLoader extends Loader<Partial<IOptions>, IInnerApplication<Partial<IOptions>>> {
+export default class AstroboyServiceLoader extends Loader<Partial<IOptions>, IInnerApplication<Partial<IOptions>>> {
   load() {
     let services: PureObject = {};
     this.dirs.forEach(item => {
@@ -26,5 +26,3 @@ class AstroboyServiceLoader extends Loader<Partial<IOptions>, IInnerApplication<
     this.app.services = services;
   }
 }
-
-export = AstroboyServiceLoader;

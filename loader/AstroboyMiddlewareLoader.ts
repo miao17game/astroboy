@@ -6,7 +6,7 @@ import { IOptions } from '../definitions/config';
 import { outputJsonSync } from '../core/lib/util';
 import { extractModule } from '../utils/exports';
 
-class AstroboyMiddlewareLoader extends Loader<Partial<IOptions>, IInnerApplication<Partial<IOptions>>> {
+export default class AstroboyMiddlewareLoader extends Loader<Partial<IOptions>, IInnerApplication<Partial<IOptions>>> {
   load() {
     // 加载中间件配置
     let middlewareConfig: PureObject = {};
@@ -51,5 +51,3 @@ class AstroboyMiddlewareLoader extends Loader<Partial<IOptions>, IInnerApplicati
     outputJsonSync(`${this.app.ROOT_PATH}/run/middlewares.json`, middlewareQueue);
   }
 }
-
-export = AstroboyMiddlewareLoader;
