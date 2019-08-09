@@ -13,5 +13,5 @@
     "importHelpers": true,
     "outDir": "./dist"
   },
-  "include": ["app", "config", "core", "loader", "plugins", "definitions", "index.ts"]
+  "include": ["app", "config", "core", "loader", "plugins", "utils", "definitions", "index.ts"]
 }

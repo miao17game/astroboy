@@ -2,6 +2,7 @@ import * as fs from 'fs-extra';
 import { Loader } from '../core/Loader';
 import { IInnerApplication, PureObject } from '../definitions/core';
 import { IOptions } from '../definitions/config';
+import { extractModule } from '../utils/exports';
 
 class AstroboyServiceLoader extends Loader<Partial<IOptions>, IInnerApplication<Partial<IOptions>>> {
   load() {
@@ -9,14 +10,14 @@ class AstroboyServiceLoader extends Loader<Partial<IOptions>, IInnerApplication<
     this.dirs.forEach(item => {
       const indexFile = `${item.baseDir}/app/services/index.js`;
       if (fs.existsSync(indexFile)) {
-        services[item.name] = require(indexFile);
+        services[item.name] = extractModule(indexFile);
       } else {
         this.globDir(item.baseDir, this.config.pattern || [], entries => {
           if (entries.length > 0) {
             services[item.name] = {};
             (<string[]>entries).forEach(entry => {
               const key = this.resolveExtensions(entry.split('services/')[1], true);
-              services[item.name][key] = require(entry);
+              services[item.name][key] = extractModule(entry);
             });
           }
         });

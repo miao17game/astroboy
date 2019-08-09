@@ -13,6 +13,7 @@ import {
   ICoreLoaderOptions,
 } from '../definitions/core';
 import { Loader } from './Loader';
+import { extractModule } from '../utils/exports';
 
 export class CoreLoader<F extends PureObject, A extends IInnerApplication<F>> extends Loader<F, A> {
   protected options!: Partial<ICoreLoaderOptions<F, A>>;
@@ -90,7 +91,7 @@ export class CoreLoader<F extends PureObject, A extends IInnerApplication<F>> ex
     this.coreDirs.forEach(item => {
       this.globDir(item.baseDir, this.patterns.pluginPattern, entries => {
         pluginConfig = entries.reduce((a, b) => {
-          const content = require(b as string);
+          const content = extractModule(b as string);
           return lodash.merge(a, content);
         }, pluginConfig);
       });
@@ -135,7 +136,7 @@ export class CoreLoader<F extends PureObject, A extends IInnerApplication<F>> ex
     let config: PureObject = {};
     this.globDir(baseDir, this.patterns.pluginPattern, entries => {
       config = entries.reduce((a, b) => {
-        return lodash.merge(a, require(b as string));
+        return lodash.merge(a, extractModule(b as string));
       }, {});
     });
     return config;
@@ -146,7 +147,7 @@ export class CoreLoader<F extends PureObject, A extends IInnerApplication<F>> ex
     let loaderConfig: PureObject = {};
     this.globDirs(this.patterns.loaderConfigPattern, entries => {
       loaderConfig = entries.reduce((previousValue, currentValue) => {
-        return lodash.merge(previousValue, require(currentValue as string));
+        return lodash.merge(previousValue, extractModule(currentValue as string));
       }, loaderConfig);
     });
 
@@ -174,7 +175,7 @@ export class CoreLoader<F extends PureObject, A extends IInnerApplication<F>> ex
     this.globDirs(this.patterns.loaderPattern, entries => {
       entries.forEach(entry => {
         const key = this.resolveExtensions(path.basename(entry as string));
-        loaders[key] = require(entry as string);
+        loaders[key] = extractModule(entry as string);
       });
     });
     this.loaders = loaders;

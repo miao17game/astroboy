@@ -4,6 +4,7 @@ import { Loader } from '../core/Loader';
 import { IInnerApplication, PureObject, MiddlewareFactory, PriorityDefine } from '../definitions/core';
 import { IOptions } from '../definitions/config';
 import { outputJsonSync } from '../core/lib/util';
+import { extractModule } from '../utils/exports';
 
 class AstroboyMiddlewareLoader extends Loader<Partial<IOptions>, IInnerApplication<Partial<IOptions>>> {
   load() {
@@ -11,7 +12,7 @@ class AstroboyMiddlewareLoader extends Loader<Partial<IOptions>, IInnerApplicati
     let middlewareConfig: PureObject = {};
     this.globDirs(this.config.configPattern || [], entries => {
       entries.forEach(entry => {
-        middlewareConfig = lodash.merge(middlewareConfig, require(entry as string));
+        middlewareConfig = lodash.merge(middlewareConfig, extractModule(entry as string));
       });
     });
     this.app.middlewareConfig = middlewareConfig;
@@ -21,7 +22,7 @@ class AstroboyMiddlewareLoader extends Loader<Partial<IOptions>, IInnerApplicati
     this.globDirs(this.config.pattern || [], entries => {
       entries.forEach(entry => {
         const key = this.resolveExtensions(path.basename(entry as string));
-        middlewares[key] = require(entry as string);
+        middlewares[key] = extractModule(entry as string);
       });
     });
     this.app.middlewares = middlewares;

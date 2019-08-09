@@ -2,6 +2,7 @@ import * as glob from 'fast-glob';
 import { Loader } from '../core/Loader';
 import { IInnerApplication, PureObject } from '../definitions/core';
 import { IOptions } from '../definitions/config';
+import { extractModule } from '../utils/exports';
 
 class AstroboyControllerLoader extends Loader<Partial<IOptions>, IInnerApplication<Partial<IOptions>>> {
   load() {
@@ -14,7 +15,7 @@ class AstroboyControllerLoader extends Loader<Partial<IOptions>, IInnerApplicati
       .filter(i => !i.includes('.d.ts'))
       .forEach(entry => {
         const key = this.resolveExtensions(entry.split('controllers/')[1], true);
-        controllers[key] = require(entry);
+        controllers[key] = extractModule(entry);
       });
     app.controllers = controllers;
   }

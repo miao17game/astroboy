@@ -5,19 +5,20 @@ import * as methods from 'methods';
 import { Loader } from '../core/Loader';
 import { IInnerApplication } from '../definitions/core';
 import { IOptions } from '../definitions/config';
+import { extractModule } from '../utils/exports';
 
 class AstroboyRouterLoader extends Loader<Partial<IOptions>, IInnerApplication<Partial<IOptions>>> {
   load() {
     let routers: any[] = [];
     const indexFile = `${this.app.ROOT_PATH}/app/routers/index.js`;
     if (fs.existsSync(indexFile)) {
-      routers = require(indexFile);
+      routers = extractModule(indexFile);
     } else {
       const entries = glob.sync([`${this.app.ROOT_PATH}${this.config.pattern}`], {
         dot: true,
       });
       entries.forEach(entry => {
-        routers = routers.concat(require(entry as string));
+        routers = routers.concat(extractModule(entry as string));
       });
     }
 

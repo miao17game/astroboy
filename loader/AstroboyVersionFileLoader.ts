@@ -3,6 +3,7 @@ import * as path from 'path';
 import { Loader } from '../core/Loader';
 import { IInnerApplication, PureObject } from '../definitions/core';
 import { IOptions } from '../definitions/config';
+import { extractModule } from '../utils/exports';
 
 class AstroboyVersionFileLoader extends Loader<Partial<IOptions>, IInnerApplication<Partial<IOptions>>> {
   load() {
@@ -14,7 +15,7 @@ class AstroboyVersionFileLoader extends Loader<Partial<IOptions>, IInnerApplicat
       });
       entries.forEach(entry => {
         const key = path.basename(entry as string, '.json');
-        versionMap[key] = require(entry as string);
+        versionMap[key] = extractModule(entry as string);
       });
     });
 
